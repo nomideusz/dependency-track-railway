@@ -1,10 +1,10 @@
-# Deploy and Host Dependency-Track 5 on Railway
+# Deploy and Host Dependency-Track on Railway
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/dependency-track?utm_medium=integration&utm_source=button&utm_campaign=dependency-track)
 
 [OWASP Dependency-Track](https://dependencytrack.org/) keeps track of what your software is made of. Your CI uploads a Software Bill of Materials (SBOM) for each build. Dependency-Track then flags the components with known vulnerabilities, outdated versions, risky licenses and policy violations, across every project and version, and tells you when a new CVE hits something you ship. This template runs Dependency-Track 5.1.1 on the official images with Postgres. It sets the admin password on first boot and turns on OSV, so the first SBOM you upload already shows its vulnerabilities.
 
-## About Hosting Dependency-Track 5
+## About Hosting Dependency-Track
 
 There are three services: Dependency-Track (the web UI), API and Postgres.
 
@@ -19,7 +19,7 @@ There are three services: Dependency-Track (the web UI), API and Postgres.
 - Keep an SBOM inventory for customers, audits or the EU Cyber Resilience Act
 - Enforce license and security policies across every project, with alerts to Slack, Teams, email or webhooks
 
-## Dependencies for Dependency-Track 5 Hosting
+## Dependencies for Dependency-Track Hosting
 
 - Postgres 17 (included, private network only)
 
@@ -56,8 +56,8 @@ curl -X POST https://<your-domain>/api/v1/bom \
 
 **Telemetry.** Dependency-Track sends anonymous usage statistics to its developers by default. Turn it off under Administration → Configuration → Telemetry.
 
-## Why Deploy Dependency-Track 5 on Railway?
+## Why Deploy Dependency-Track on Railway?
 
 Railway is a singular platform to deploy your infrastructure stack. Railway will host your infrastructure so you don't have to deal with configuration, while allowing you to vertically and horizontally scale it.
 
-By deploying Dependency-Track 5 on Railway, you are one step closer to supporting a complete full-stack application with minimal burden. Host your servers, databases, AI agents, and more on Railway.
+By deploying Dependency-Track on Railway, you are one step closer to supporting a complete full-stack application with minimal burden. Host your servers, databases, AI agents, and more on Railway.
