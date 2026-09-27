@@ -33,7 +33,7 @@ There are three services: Dependency-Track (the web UI), API and Postgres.
 
 **Sign in** at the Dependency-Track service's Railway domain. The username is `admin` and the password is `DTRACK_ADMIN_PASSWORD` from the Dependency-Track service's Variables tab. The first boot takes under a minute. Change the password afterwards under your profile, because the variable is only read on first boot.
 
-**Vulnerability data.** On first boot Dependency-Track downloads the NVD and OSV databases, about 570,000 records. OSV takes a couple of minutes and the NVD about ten. Both refresh daily. SBOMs uploaded before the download finishes are analyzed again on the daily schedule; to see findings sooner, re-run the analysis from the project's Audit Vulnerabilities tab. Change the sources and OSV ecosystems under Administration → Vulnerability Sources.
+**Vulnerability data.** On first boot Dependency-Track downloads the NVD and OSV databases, about 570,000 records. OSV takes two to four minutes and the NVD five to ten. Both refresh daily. SBOMs uploaded before the download finishes are analyzed again on the daily schedule; to see findings sooner, re-run the analysis from the project's Audit Vulnerabilities tab. Change the sources and OSV ecosystems under Administration → Vulnerability Sources.
 
 **Uploads from CI.** Create an API key under Administration → Access Management → Teams → Automation. Then upload a CycloneDX SBOM from your pipeline:
 
@@ -48,7 +48,7 @@ curl -X POST https://<your-domain>/api/v1/bom \
 
 **Notifications.** Railway only allows outbound SMTP on the Pro plan. On other plans, send alerts to Slack, Microsoft Teams, Mattermost or a webhook under Administration → Notifications.
 
-**Memory.** Around 600 MB for the API, 300 MB for Postgres and a few MB for the UI. The vulnerability data takes about 1.5 GB of Postgres storage.
+**Memory and storage.** Around 600 MB for the API and a few MB for the UI. Postgres itself needs about 250 MB, but Linux keeps the database files it has written in memory, and Railway counts that cache as usage. After the first download that would be 3 GB, so this template caps Postgres at 1 GB (Postgres service → Settings → Resource Limits). The vulnerability data and Postgres's write-ahead log take about 3 GB of storage.
 
 **Backups.** Projects, findings and settings are in Postgres. The API volume holds the key that encrypts the secrets you save in Dependency-Track, such as integration tokens. Turn on Railway's volume backups for both services.
 
