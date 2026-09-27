@@ -1,0 +1,8 @@
+{
+  "name": "Dependency-Track 5 | OWASP SBOM and Vulnerability Tracking",
+  "short_name": "Dependency-Track",
+  "description": "OWASP Dependency-Track 5: SBOM analysis, known vulnerabilities, one URL",
+  "category": "Other",
+  "image": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/dependency-track.svg",
+  "card_desc": "OWASP Dependency-Track 5: upload SBOMs from CI and track known vulnerabilities, licenses and policy violations across every project, with the admin set on first boot."
+}

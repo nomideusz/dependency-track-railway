@@ -1,0 +1,145 @@
+{
+  "services": {
+    "a0c22c71-58a6-4563-b40f-62a172f35991": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/dependency-track.svg",
+      "name": "Dependency-Track",
+      "build": {},
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": "/",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "repo": "https://github.com/nomideusz/dependency-track-railway",
+        "rootDirectory": "/frontend"
+      },
+      "variables": {
+        "PORT": {
+          "defaultValue": "8080",
+          "description": "Port nginx listens on - leave as is",
+          "isOptional": false
+        },
+        "DTRACK_ADMIN_PASSWORD": {
+          "defaultValue": "${{secret(20, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Password for the admin login, set on first boot only - copy it from here to log in, then change it in Dependency-Track",
+          "isOptional": false
+        },
+        "DTRACK_API_URL": {
+          "defaultValue": "http://${{API.RAILWAY_PRIVATE_DOMAIN}}:8080",
+          "description": "API server on the private network - /api is proxied there, leave as is",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>": {}
+        }
+      }
+    },
+    "04e62795-c400-44c2-9f62-5eb1d4beec8d": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/dependency-track.svg",
+      "name": "API",
+      "build": {},
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": "/api/version",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "repo": "https://github.com/nomideusz/dependency-track-railway",
+        "rootDirectory": "/apiserver"
+      },
+      "variables": {
+        "PORT": {
+          "defaultValue": "8080",
+          "description": "Port the API server listens on - leave as is",
+          "isOptional": false
+        },
+        "DTRACK_ADMIN_PASSWORD": {
+          "defaultValue": "${{Dependency-Track.DTRACK_ADMIN_PASSWORD}}",
+          "description": "Admin password, read on first boot - set it on the Dependency-Track service",
+          "isOptional": false
+        },
+        "DT_DATASOURCE_URL": {
+          "defaultValue": "jdbc:postgresql://${{Postgres.RAILWAY_PRIVATE_DOMAIN}}:5432/${{Postgres.POSTGRES_DB}}",
+          "description": "Postgres JDBC URL - private network, leave as is",
+          "isOptional": false
+        },
+        "DT_DATASOURCE_USERNAME": {
+          "defaultValue": "${{Postgres.POSTGRES_USER}}",
+          "description": "Postgres user - leave as is",
+          "isOptional": false
+        },
+        "DT_DATASOURCE_PASSWORD": {
+          "defaultValue": "${{Postgres.POSTGRES_PASSWORD}}",
+          "description": "Postgres password - leave as is",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "30",
+          "description": "Time for running analyses to stop cleanly on redeploy",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {}
+      },
+      "volumeMounts": {
+        "04e62795-c400-44c2-9f62-5eb1d4beec8d": {
+          "mountPath": "/data"
+        }
+      }
+    },
+    "29ed8029-a9a7-4fa8-9e80-e2cab655878b": {
+      "icon": "https://devicons.railway.app/i/postgresql.svg",
+      "name": "Postgres",
+      "build": {},
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "ghcr.io/railwayapp-templates/postgres-ssl:17"
+      },
+      "variables": {
+        "POSTGRES_DB": {
+          "defaultValue": "dtrack",
+          "description": "Database name",
+          "isOptional": false
+        },
+        "POSTGRES_USER": {
+          "defaultValue": "dtrack",
+          "description": "Database user",
+          "isOptional": false
+        },
+        "POSTGRES_PASSWORD": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Auto-generated database password",
+          "isOptional": false
+        },
+        "PGDATA": {
+          "defaultValue": "/var/lib/postgresql/data/pgdata",
+          "description": "Data subdirectory - keeps Postgres happy on Railway volumes",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "60",
+          "description": "Time for Postgres to shut down cleanly on redeploy",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {}
+      },
+      "volumeMounts": {
+        "29ed8029-a9a7-4fa8-9e80-e2cab655878b": {
+          "mountPath": "/var/lib/postgresql/data"
+        }
+      }
+    }
+  }
+}
