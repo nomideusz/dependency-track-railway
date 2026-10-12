@@ -1,6 +1,6 @@
 # Deploy and Host Dependency-Track on Railway
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/dependency-track?utm_medium=integration&utm_source=button&utm_campaign=dependency-track)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/dependency-track?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=dependency-track)
 
 [OWASP Dependency-Track](https://dependencytrack.org/) tracks what your software is made of. Your CI uploads an SBOM for each build, and Dependency-Track flags components with known vulnerabilities, risky licenses and policy violations across all your projects, and alerts you when a new CVE hits something you ship. This template runs Dependency-Track 5.1.1 with Postgres, sets the admin password on first boot and turns on OSV, so your first SBOM already shows its vulnerabilities.
 
