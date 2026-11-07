@@ -11,7 +11,7 @@ dtrack() {
     --enable-native-access=ALL-UNNAMED \
     --sun-misc-unsafe-memory-access=allow \
     -Djdk.http.auth.tunneling.disabledSchemes= \
-    -cp 'dependency-track-apiserver.jar:lib/*' \
+    -cp 'dependency-track-apiserver.jar:lib/*:lib-external/*' \
     org.dependencytrack.Application -context "$CONTEXT" "$@"
 }
 
