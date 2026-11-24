@@ -1,4 +1,4 @@
-FROM dependencytrack/frontend:5.2.1
+FROM dependencytrack/frontend:5.2.2
 
 # Serves the UI and proxies /api to the API server over Railway's private
 # network, so the browser and CI pipelines use one URL.

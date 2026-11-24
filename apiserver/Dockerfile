@@ -1,4 +1,4 @@
-FROM dependencytrack/apiserver:5.2.1
+FROM dependencytrack/apiserver:5.2.2
 
 # Root for the entrypoint to take ownership of the Railway volume (mounted
 # root-owned); Dependency-Track itself still runs as its own user.
