@@ -1,5 +1,5 @@
 {
-  "name": "Dependency-Track 5 | OWASP SBOM and Vulnerability Tracking",
+  "name": "Dependency-Track",
   "short_name": "Dependency-Track",
   "description": "OWASP Dependency-Track 5: SBOM analysis, known vulnerabilities, one URL",
   "category": "Other",
